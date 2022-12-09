@@ -55,8 +55,8 @@ namespace fast_planner
     visualization_.reset(new PlanningVisualization(nh));
 
     /* callback */
-    exec_timer_ = nh.createTimer(ros::Duration(0.01), &TopoReplanFSM::execFSMCallback, this);
-    safety_timer_ = nh.createTimer(ros::Duration(0.05), &TopoReplanFSM::checkCollisionCallback, this);
+    exec_timer_ = nh.createTimer(ros::Duration(0.2), &TopoReplanFSM::execFSMCallback, this);
+    safety_timer_ = nh.createTimer(ros::Duration(0.1), &TopoReplanFSM::checkCollisionCallback, this);
 
     waypoint_sub_ = nh.subscribe("waypoints", 1, &TopoReplanFSM::waypointCallback, this);
     odom_sub_ = nh.subscribe("odom", 1, &TopoReplanFSM::odometryCallback, this);

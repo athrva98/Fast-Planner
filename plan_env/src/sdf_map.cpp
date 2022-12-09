@@ -172,9 +172,9 @@ void SDFMap::initMap(ros::NodeHandle& nh) {
   indep_odom_sub_ =
       node_.subscribe<nav_msgs::Odometry>("sdf_map_odom", 10, &SDFMap::odomCallback, this);
 
-  occ_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::updateOccupancyCallback, this);
-  esdf_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::updateESDFCallback, this);
-  vis_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::visCallback, this);
+  occ_timer_ = node_.createTimer(ros::Duration(0.2), &SDFMap::updateOccupancyCallback, this);
+  esdf_timer_ = node_.createTimer(ros::Duration(0.2), &SDFMap::updateESDFCallback, this);
+  vis_timer_ = node_.createTimer(ros::Duration(0.2), &SDFMap::visCallback, this);
 
   map_pub_ = node_.advertise<sensor_msgs::PointCloud2>("sdf_map/occupancy", 10);
   map_inf_pub_ = node_.advertise<sensor_msgs::PointCloud2>("sdf_map/occupancy_inflate", 10);

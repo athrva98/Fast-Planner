@@ -57,8 +57,8 @@ void KinoReplanFSM::init(ros::NodeHandle& nh) {
   visualization_.reset(new PlanningVisualization(nh));
 
   /* callback */
-  exec_timer_   = nh.createTimer(ros::Duration(0.01), &KinoReplanFSM::execFSMCallback, this);
-  safety_timer_ = nh.createTimer(ros::Duration(0.05), &KinoReplanFSM::checkCollisionCallback, this);
+  exec_timer_   = nh.createTimer(ros::Duration(0.2), &KinoReplanFSM::execFSMCallback, this);
+  safety_timer_ = nh.createTimer(ros::Duration(0.1), &KinoReplanFSM::checkCollisionCallback, this);
 
   waypoint_sub_ =  nh.subscribe("/ddk/goal_point", 1, &KinoReplanFSM::waypointCallback, this);
   
@@ -361,7 +361,8 @@ void KinoReplanFSM::checkCollisionCallback(const ros::TimerEvent& e) {
 
       if (max_dist > 0.4) {
         cout << "change goal, replan." << endl;
-        end_pt_      = goal;
+        // end_pt_      = goal; // This produces some unexpected behavior. If the waypoint is in collision, this resamples the waypoint
+        // The resampled point can sometimes be far away
         have_target_ = true;
         end_vel_.setZero();
 
